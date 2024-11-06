@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useMemo, useState } from "react";
+import { initialItems } from "./utils/InitialItems";
+import "./App.css";
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [items] = useState(initialItems);
+
+  const selectedItem = useMemo(
+    () => items.find((item) => item.isSelected),
+    [items]
+  );
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>UseMemo Hook</h1>
+      <h2>Count:{count}</h2>
+      <h2>Selected Item: {selectedItem?.id}</h2>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   );
 }
